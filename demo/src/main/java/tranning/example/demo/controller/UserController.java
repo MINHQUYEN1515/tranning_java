@@ -1,0 +1,45 @@
+package tranning.example.demo.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
+import tranning.example.demo.dto.request.UserRequest;
+import tranning.example.demo.dto.response.ApiResponse;
+import tranning.example.demo.exception.AppException;
+import tranning.example.demo.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@RestController
+@RequestMapping(path = "/api/v1/user")
+@SuppressWarnings({ "rawtypes", "unchecked" })
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/signup")
+    public ResponseEntity signup(@RequestBody @Valid UserRequest entity) {
+        try {
+            userService.signup(entity);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Create user success!", null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "craete faild", e.getMessage()));
+
+        }
+
+    }
+
+    // @PostMapping("/login")
+    // public void login() {
+    // }
+
+    // @GetMapping("/profile")
+    // public ResponseEntity getProfile() {
+
+    // }
+
+}

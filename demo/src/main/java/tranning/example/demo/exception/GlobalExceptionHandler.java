@@ -1,11 +1,17 @@
 package tranning.example.demo.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import tranning.example.demo.dto.response.ApiResponse;
 
 @SuppressWarnings("rawtypes")
+@ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception) {
@@ -26,6 +32,16 @@ public class GlobalExceptionHandler {
         apiResponse.setMessage(errorCode.getMessage());
 
         return ResponseEntity.status(errorCode.getStatusCode()).body(apiResponse);
+    }
+
+    @SuppressWarnings("unchecked")
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    ResponseEntity<ApiResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        Map<String, String> errors = new HashMap<>();
+        e.getBindingResult().getFieldErrors()
+                .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+        return ResponseEntity.badRequest()
+                .body(new ApiResponse(400, "Server ", errors));
     }
 
 }

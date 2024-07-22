@@ -1,5 +1,6 @@
 package tranning.example.demo.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,10 +28,11 @@ public class UserEntity {
     Long id;
     String user_name;
     String image;
+    // @UniqueEmail
     String email;
     @JsonIgnore
     String password;
-    Date created_at;
+    LocalDateTime created_at;
     Date updated_at;
 
 }

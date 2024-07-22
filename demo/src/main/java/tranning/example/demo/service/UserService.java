@@ -14,12 +14,13 @@ public class UserService {
     @Autowired
     private UserRepositories userRepositories;
 
-    private UserRequestToUserEntity userMapper = new UserRequestToUserEntity();
+    private static UserRequestToUserEntity userMapper = new UserRequestToUserEntity();
 
     @Transactional
     public void signup(UserRequest user) {
 
         UserEntity userEntity = userMapper.parseToUserEntity(user);
+
         userRepositories.save(userEntity);
     }
 }

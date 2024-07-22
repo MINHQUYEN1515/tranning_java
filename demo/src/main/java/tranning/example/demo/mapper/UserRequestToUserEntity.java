@@ -1,5 +1,7 @@
 package tranning.example.demo.mapper;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +19,7 @@ public class UserRequestToUserEntity {
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setEmail(user.getEmail());
         userEntity.setImage(user.getImage());
-        userEntity.setCreated_at(user.getCreated_at());
+        userEntity.setCreated_at(LocalDateTime.now());
         userEntity.setUpdated_at(user.getUpdated_at());
         return userEntity;
     }

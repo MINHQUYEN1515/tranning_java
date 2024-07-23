@@ -34,5 +34,6 @@ public class UserEntity {
     String password;
     LocalDateTime created_at;
     Date updated_at;
+    String role;
 
 }

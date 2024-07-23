@@ -12,4 +12,7 @@ public interface UserRepositories extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT password FROM user WHERE email= :email", nativeQuery = true)
     public String findUser(@Param("email") String email);
 
+    @Query(value = "select * from user where email= :email", nativeQuery = true)
+    public UserEntity findByEmail(@Param("email") String email);
+
 }

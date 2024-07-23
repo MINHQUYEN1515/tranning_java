@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import tranning.example.demo.dto.request.UserRequest;
 import tranning.example.demo.model.UserEntity;
+import tranning.example.demo.model.enums.RoleEnum;
 
 public class UserRequestToUserEntity {
     @Autowired
@@ -21,6 +22,7 @@ public class UserRequestToUserEntity {
         userEntity.setImage(user.getImage());
         userEntity.setCreated_at(LocalDateTime.now());
         userEntity.setUpdated_at(user.getUpdated_at());
+        userEntity.setRole(RoleEnum.USER.name());
         return userEntity;
     }
 }

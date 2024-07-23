@@ -14,6 +14,7 @@ import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.JWSObject;
 import com.nimbusds.jose.Payload;
 import com.nimbusds.jose.crypto.MACSigner;
+
 import com.nimbusds.jwt.JWTClaimsSet;
 
 import tranning.example.demo.dto.request.AuthenticationRequest;
@@ -44,7 +45,7 @@ public class AuthenticationService {
                 .subject(email)
                 .issuer("demo.com")
                 .issueTime(new Date())
-                .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
+                .expirationTime(new Date(Instant.now().plus(5, ChronoUnit.HOURS).toEpochMilli()))
                 .claim("customerclaim", "customer")
                 .build();
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -58,4 +59,5 @@ public class AuthenticationService {
         }
 
     }
+
 }

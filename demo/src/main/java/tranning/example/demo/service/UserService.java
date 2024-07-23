@@ -23,4 +23,8 @@ public class UserService {
 
         userRepositories.save(userEntity);
     }
+
+    public UserEntity getProfile(String email) {
+        return userRepositories.findByEmail(email);
+    }
 }

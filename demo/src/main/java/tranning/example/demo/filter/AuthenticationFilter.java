@@ -8,8 +8,10 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tranning.example.demo.Config.AppConfig;
 
 public class AuthenticationFilter extends OncePerRequestFilter {
+
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws ServletException, IOException {
@@ -17,7 +19,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     if (Authorization != null) {
       Authorization = Authorization.substring(7);
     }
-    logger.info("Successfully authenticated user " + Authorization);
+    logger.info("Successfully authenticated user " + AppConfig.getHost(request));
     filterChain.doFilter(request, response);
   }
+
 }

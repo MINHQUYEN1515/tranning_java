@@ -12,6 +12,8 @@ import io.github.bucket4j.Refill;
 import jakarta.validation.Valid;
 
 import tranning.example.demo.dto.request.AuthenticationRequest;
+import tranning.example.demo.dto.request.EditProfile;
+import tranning.example.demo.dto.request.UpdateImage;
 import tranning.example.demo.dto.request.UserRequest;
 import tranning.example.demo.dto.response.ApiResponse;
 import tranning.example.demo.dto.response.LoginReponse;
@@ -102,6 +104,28 @@ public class UserController {
     @GetMapping(value = "/image/{image}", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] getimage(@PathVariable("image") String image) throws IOException {
         return getClass().getResourceAsStream("/static/image/" + image).readAllBytes();
+    }
+
+    @PostMapping("/edit-profile")
+    public ResponseEntity postMethodName(@RequestBody @Valid EditProfile entity) {
+        try {
+            UserEntity user = userService.editProfile(entity);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Update user success!", user));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Update user faild!", e.getMessage()));
+
+        }
+    }
+
+    @PostMapping(value = "/update-image", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity postMethodName(@Valid UpdateImage file) {
+        try {
+            boolean user = userService.updateImage(file);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Update user success!", user));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Update user faild!", e.getMessage()));
+
+        }
     }
 
 }

@@ -12,12 +12,18 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.JWSObject;
+
 import com.nimbusds.jose.Payload;
 import com.nimbusds.jose.crypto.MACSigner;
 
 import com.nimbusds.jwt.JWTClaimsSet;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import tranning.example.demo.Config.AppConfig;
 import tranning.example.demo.dto.request.AuthenticationRequest;
+
 import tranning.example.demo.reponsitories.UserRepositories;
 
 @Component
@@ -25,7 +31,6 @@ public class AuthenticationService {
     @Autowired
     UserRepositories userRepositories;
 
-    private final String SECRET_KEY = "Yn7MAHdm9Gi9QnTk6F5jCsQatUNJW8zp";
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public String checkUser(AuthenticationRequest request) {
@@ -51,13 +56,21 @@ public class AuthenticationService {
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
         JWSObject jwsObject = new JWSObject(header, payload);
         try {
-            jwsObject.sign(new MACSigner(SECRET_KEY.getBytes()));
+            jwsObject.sign(new MACSigner(AppConfig.SECRET_KEY.getBytes()));
             return jwsObject.serialize();
 
         } catch (JOSEException e) {
             throw new RuntimeException(e.getMessage());
         }
 
+    }
+
+    public Jws<Claims> getUserNameFromJwtToken(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(AppConfig.SECRET_KEY.getBytes())
+                .build()
+                .parseClaimsJws(token);
     }
 
 }

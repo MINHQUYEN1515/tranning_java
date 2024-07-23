@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import tranning.example.demo.Config.AppConfig;
 import tranning.example.demo.filter.AuthenticationFilter;
 
 @Configuration
@@ -26,7 +27,6 @@ public class SecurityConfig {
                         "/api/v1/user/image/**"
 
         };
-        private final String SECRET_KEY = "Yn7MAHdm9Gi9QnTk6F5jCsQatUNJW8zp";
 
         @Bean
         public SecurityFilterChain security(HttpSecurity http) throws Exception {
@@ -52,7 +52,7 @@ public class SecurityConfig {
 
         @Bean
         JwtDecoder jwtDecoder() {
-                SecretKeySpec secretKeySpec = new SecretKeySpec(SECRET_KEY.getBytes(), "HS256");
+                SecretKeySpec secretKeySpec = new SecretKeySpec(AppConfig.SECRET_KEY.getBytes(), "HS256");
                 return NimbusJwtDecoder
                                 .withSecretKey(secretKeySpec)
                                 .macAlgorithm(MacAlgorithm.HS256)

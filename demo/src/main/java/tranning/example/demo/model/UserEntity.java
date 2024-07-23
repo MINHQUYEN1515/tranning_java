@@ -3,6 +3,9 @@ package tranning.example.demo.model;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -32,7 +35,9 @@ public class UserEntity {
     String email;
     @JsonIgnore
     String password;
+    @CreationTimestamp
     LocalDateTime created_at;
+    @UpdateTimestamp
     Date updated_at;
     String role;
 

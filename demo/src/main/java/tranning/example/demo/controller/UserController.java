@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 
 import tranning.example.demo.dto.request.AuthenticationRequest;
 import tranning.example.demo.dto.request.EditProfile;
+import tranning.example.demo.dto.request.LogoutRequest;
 import tranning.example.demo.dto.request.UpdateImage;
 import tranning.example.demo.dto.request.UserRequest;
 import tranning.example.demo.dto.response.ApiResponse;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -126,6 +128,23 @@ public class UserController {
             return ResponseEntity.badRequest().body(new ApiResponse(400, "Update user faild!", e.getMessage()));
 
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity postMethodName(@RequestBody LogoutRequest entity) {
+        try {
+            authenticationService.logout(entity);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Logout user success!", null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Logout user faild!", e.getMessage()));
+
+        }
+    }
+
+    @Scheduled(cron = "0 * * * *")
+    @GetMapping("/delete")
+    public void getMethodName() {
+        authenticationService.deleteRowsLogoutTable();
     }
 
 }

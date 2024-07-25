@@ -1,7 +1,6 @@
 package tranning.example.demo.security;
 
-import javax.crypto.spec.SecretKeySpec;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -9,14 +8,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
-import tranning.example.demo.Config.AppConfig;
 import tranning.example.demo.filter.AuthenticationFilter;
+import tranning.example.demo.utils.CustomDecoder;
 
 @Configuration
 @EnableWebSecurity
@@ -24,9 +24,13 @@ public class SecurityConfig {
         public static final String[] PUBLIC_ROUTE = {
                         "/api/v1/user/signup",
                         "/api/v1/user/login",
-                        "/api/v1/user/image/**"
+                        "/api/v1/user/image/**",
+                        "/api/v1/user/logout",
+                        "/api/v1/user/delete"
 
         };
+        @Autowired
+        private CustomDecoder customJwtDecoder;
 
         @Bean
         public SecurityFilterChain security(HttpSecurity http) throws Exception {
@@ -45,19 +49,20 @@ public class SecurityConfig {
                 // http.cors(AbstractHttpConfigurer::disable);
                 http.addFilterBefore(new AuthenticationFilter(),
                                 BasicAuthenticationFilter.class);
-                http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfig -> jwtConfig.decoder(jwtDecoder())));
+                http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfig -> jwtConfig.decoder(customJwtDecoder)));
                 return http.build();
 
         }
 
         @Bean
-        JwtDecoder jwtDecoder() {
-                SecretKeySpec secretKeySpec = new SecretKeySpec(AppConfig.SECRET_KEY.getBytes(), "HS256");
-                return NimbusJwtDecoder
-                                .withSecretKey(secretKeySpec)
-                                .macAlgorithm(MacAlgorithm.HS256)
-                                .build();
-
+        public CorsFilter corsFilter() {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.addAllowedOrigin("*");
+                configuration.addAllowedMethod("*");
+                configuration.addAllowedHeader("*");
+                UrlBasedCorsConfigurationSource basedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+                basedCorsConfigurationSource.registerCorsConfiguration("/**", configuration);
+                return new CorsFilter(basedCorsConfigurationSource);
         }
 
 }

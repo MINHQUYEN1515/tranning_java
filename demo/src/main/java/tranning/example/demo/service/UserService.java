@@ -96,4 +96,5 @@ public class UserService {
     public static int randomNumber(int min, int max) {
         return generator.nextInt((max - min) + 1) + min;
     }
+
 }

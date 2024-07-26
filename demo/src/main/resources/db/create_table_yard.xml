@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="id2" author="yard">
+        <createTable tableName="yard">
+            <column name="id"  type="BIGINT" autoIncrement="true">
+             <constraints primaryKey="true"   />
+             
+            </column>
+            <column name="time_start"  type="Date" >
+              <constraints nullable="true"   />
+            </column>
+            <column name="time_end"  type="Date">
+              <constraints nullable="true"   />
+             
+            </column>
+            <column name="count_yarn_item"  type="INT">
+              <constraints nullable="true"   />
+             
+            </column>
+            <column name="address"  type="nvarchar(100)">
+              <constraints nullable="true"   />
+             
+            </column>
+            <column name="price_morning"  type="BIGINT">
+              <constraints nullable="true"   />
+             
+            </column>
+            <column name="price_afternoon"  type="BIGINT">
+              <constraints nullable="true"   />
+             
+            </column>
+            <column name="price_evening"  type="BIGINT">
+              <constraints nullable="true"   />
+             
+            </column>
+            <column name="created_at"  type="date">
+              <constraints nullable="true"   />
+             
+            </column>
+           
+            <column name="update_at"  type="date">
+              <constraints nullable="true"   />
+             
+            </column>
+           
+
+            
+        </createTable>
+        
+    </changeSet>
+</databaseChangeLog>

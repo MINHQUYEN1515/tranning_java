@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="id1" author="yard_item">
+        <createTable tableName="yard_item">
+            <column name="id"  type="BIGINT" autoIncrement="true">
+             <constraints primaryKey="true"   />
+            </column>
+            <column name="image"  type="nvarchar(100)" >
+             
+            </column>       
+            <column name="yard_id"  type="BIGINT" >
+            </column>       
+        </createTable>
+         
+    </changeSet>
+    
+</databaseChangeLog>

@@ -31,14 +31,12 @@ public class OrderService {
         System.out.print(yard_item.getStatus().toString() == Status_Yard.CHUA_DAT.name().toString());
         if (yard_item.getStatus().compareTo(Status_Yard.CHUA_DAT.name()) == 0) {
             yard_item.setStatus(Status_Yard.getStatus(request.getPrice()));
-        }
-        if (yard_item.getStatus().compareTo(Status_Yard.getStatus(request.getPrice())) == 0) {
+        } else if (yard_item.getStatus().contains(Status_Yard.getStatus(request.getPrice())) == true) {
             throw new RuntimeException("Khung giờ này đã có người dặt");
         } else {
             yard_item.setStatus(yard_item.getStatus() + "," + Status_Yard.getStatus(request.getPrice()));
 
         }
-
         yardItemRepositories.save(yard_item);
         return entity;
     }

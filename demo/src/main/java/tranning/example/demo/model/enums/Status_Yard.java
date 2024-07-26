@@ -16,6 +16,6 @@ public enum Status_Yard {
         if (price == 150000) {
             return Status_Yard.DA_DAT_KHUNG_TOI.name();
         }
-        return "";
+        throw new RuntimeException("Khung giờ không hợp lệ");
     }
 }

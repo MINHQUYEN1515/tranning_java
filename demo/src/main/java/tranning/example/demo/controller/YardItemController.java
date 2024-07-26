@@ -12,7 +12,6 @@ import tranning.example.demo.dto.request.YardItemRequest;
 import tranning.example.demo.dto.response.ApiResponse;
 import tranning.example.demo.service.YardItemService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping(path = "api/v1/yard-item")

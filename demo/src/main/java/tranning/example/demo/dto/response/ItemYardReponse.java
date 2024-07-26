@@ -1,7 +1,6 @@
 package tranning.example.demo.dto.response;
 
 import lombok.AccessLevel;
-import lombok.Data;
 
 import lombok.experimental.FieldDefaults;
 

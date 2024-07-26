@@ -63,8 +63,8 @@ public class UserService {
 
         UserEntity user = userRepositories.findById(file.getUser_id())
                 .orElseThrow(() -> new RuntimeException("User Not Found"));
-        if (user.getImage() != null) {
-            File file_delete = new File(UPLOAD_DIRECTORY + user.getImage());
+        if (user.getImageName() != null) {
+            File file_delete = new File(UPLOAD_DIRECTORY + user.getImageName());
             file_delete.delete();
         }
 

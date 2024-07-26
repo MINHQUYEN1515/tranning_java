@@ -9,5 +9,8 @@
     <include file="classpath:db/create_table_yard.xml" relativeToChangelogFile="false" />
     <include file="classpath:db/create_table_yard_item.xml" relativeToChangelogFile="false" />
    <include file="classpath:db/create_foriegn_key_yarn.xml" relativeToChangelogFile="false" />  
+   <include file="classpath:db/add_column_yard_item.xml" relativeToChangelogFile="false" />  
+   <include file="classpath:db/create_table_order.xml" relativeToChangelogFile="false" />  
+   <include file="classpath:db/add_foreign_key_table_order.xml" relativeToChangelogFile="false" />  
 
 </databaseChangeLog>

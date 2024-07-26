@@ -24,6 +24,11 @@ public class YardItemEntity {
     Long id;
     String image;
     Long yard_id;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
 
     public Long getId() {
         return id;

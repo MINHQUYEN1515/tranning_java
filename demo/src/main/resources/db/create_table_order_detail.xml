@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="id12" author="order_detail">
+        <createTable tableName="order_detail">
+             <column name="id"  type="BIGINT" autoIncrement="true">
+             <constraints primaryKey="true"   />
+            </column>
+            <column name="time_start" type="date">
+            </column>
+            <column name="time_end" type="date">
+            </column>
+             <column name="status" type="INT">
+            </column>
+            <column name="price" type="BIGINT">
+            </column>
+            <column name="created_at" type="date">
+            </column>
+            <column name="updated_at" type="date">
+            </column>
+            <column name="order_id" type="BIGINT">
+            </column>
+            <column name="yard_id" type="BIGINT">
+            </column>
+            
+           
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

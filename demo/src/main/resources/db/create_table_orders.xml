@@ -13,17 +13,13 @@
             <column name="name"  type="nvarchar(30)">
              
             </column>
+            <column name="status"  type="INT">
+
+            </column>
             <column name="yard_id"  type="BIGINT">
                 
             </column>
-            <column name="price"  type="BIGINT">
-                
-            </column>
-            <column name="time_start"  type="Date">
-                
-            </column>
-            <column name="time_end"  type="Date">
-                
+            <column name="sum_bill" type="BIGINT">
             </column>
             <column name="created_at"  type="Date">
                 

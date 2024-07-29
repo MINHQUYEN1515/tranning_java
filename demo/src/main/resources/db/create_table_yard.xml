@@ -20,6 +20,9 @@
               <constraints nullable="true"   />
              
             </column>
+             <column name="status"  type="INT">
+
+            </column>
             <column name="image"  type="nvarchar(100)">
               <constraints nullable="true"   />
              

@@ -18,29 +18,32 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "order_detail")
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class OrderEntity {
+public class OrdersDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name = "phone")
-    String phone;
-    @Column(name = "name")
-    String name;
+    @Column(name = "time_start")
+    Date timeStart;
+    @Column(name = "time_end")
+    Date timeEnd;
+    @Column(name = "status")
+    Integer status;
+    @Column(name = "price")
+    Long price;
+    @Column(name = "order_id")
+    Long orderId;
     @Column(name = "yard_id")
     Long yardId;
-    @Column(name = "status")
-    Integer price;
-    @Column(name = "sum_bill")
-    Long sumBill;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
     Date updatedAt;
+
 }

@@ -19,6 +19,9 @@
             <column name="time_end"  type="date">
 
             </column>
+            <column name="status"  type="INT">
+
+            </column>
             <column name="yard_id" type="BIGINT">
 
             </column>

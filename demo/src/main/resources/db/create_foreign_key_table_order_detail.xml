@@ -14,7 +14,7 @@
  
         <addForeignKeyConstraint  baseColumnNames="yard_id"
             baseTableName="order_detail" 
-            constraintName="fk_price_orders"
+            constraintName="fk_yard_orders"
             onDelete="CASCADE"
             onUpdate="RESTRICT"
             referencedColumnNames="id"

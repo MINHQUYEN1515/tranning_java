@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,21 +30,30 @@ public class YardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @JsonFormat(pattern = " HH:mm:ss")
-    Date time_start;
+    @Column(name = "time_start")
+    Date timeStart;
     @JsonFormat(pattern = "HH:mm:ss")
-    Date time_end;
-    Integer count_yarn_item;
+    @Column(name = "time_end")
+    Date timeEnd;
+    @Column(name = "address")
     String address;
-    Long price_morning;
-    Long price_afternoon;
-    Long price_evening;
+    @Column(name = "image")
+    String image;
+    @Column(name = "price_morning_id")
+    Long priceMorningId;
+    @Column(name = "price_afternoon_id")
+    Long priceAfternoonId;
+    @Column(name = "time_eservations")
+    String timeEservations;
+    @Column(name = "price_evening_id")
+    Long priceEveningId;
     @CreationTimestamp
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
-    Date created_at;
+    @Column(name = "created_at")
+    Date createdAt;
     @UpdateTimestamp
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
-    Date updated_at;
+    @Column(name = "updated_at")
+    Date updatedAt;
 
 }

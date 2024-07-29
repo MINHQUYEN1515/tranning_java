@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="id3" author="price_morning">
+        <createTable tableName="price_morning">
+            <column name="id"  type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="6:00_7:00"  type="BIGINT">
+
+            </column>
+            <column name="7:00_8:00"  type="BIGINT">
+
+            </column>
+            <column name="8:00_9:00"  type="BIGINT">
+
+            </column>
+            <column name="9:00_10:00"  type="BIGINT">
+
+            </column>
+            <column name="10:00_11:00"  type="BIGINT">
+
+            </column>
+            <column name="11:00_12:00"  type="BIGINT">
+
+            </column>
+            
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

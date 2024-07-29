@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="id6" author="add_foreign_key_table_yard">
+       
+        <addForeignKeyConstraint  baseColumnNames="price_morning_id"
+            baseTableName="yard" 
+            constraintName="fk_price_morning_id_yard"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="price_morning"/>
+        <addForeignKeyConstraint  baseColumnNames="price_afternoon_id"
+            baseTableName="yard" 
+            constraintName="fk_price_afternoon_id_yard"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="price_afternoon"/>
+        <addForeignKeyConstraint  baseColumnNames="price_evening_id"
+            baseTableName="yard" 
+            constraintName="fk_price_evening_id_yard"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="price_evening"/>
+   
+    </changeSet>
+</databaseChangeLog>

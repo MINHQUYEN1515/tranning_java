@@ -5,6 +5,7 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,7 +17,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Entity
 @Table(name = "orders")
 @Data
 @Getter
@@ -26,14 +26,22 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Long yard_item_id;
-    Date time_start;
-    Date time_end;
-    Long price;
+    @Column(name = "phone")
     String phone;
-    Long user_id;
+    @Column(name = "name")
+    String name;
+    @Column(name = "yard_id")
+    Long yardId;
+    @Column(name = "price")
+    Long price;
+    @Column(name = "time_start")
+    Date timeStart;
+    @Column(name = "time_end")
+    Date timeEnd;
     @CreationTimestamp
-    Date created_at;
+    @Column(name = "created_at")
+    Date createdAt;
     @UpdateTimestamp
-    Date updated_at;
+    @Column(name = "updated_at")
+    Date updatedAt;
 }

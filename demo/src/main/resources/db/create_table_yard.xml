@@ -5,8 +5,9 @@
     <changeSet id="id2" author="yard">
         <createTable tableName="yard">
             <column name="id"  type="BIGINT" autoIncrement="true">
-             <constraints primaryKey="true"   />
-             
+             <constraints primaryKey="true"   /> 
+            </column>
+            <column name="name" type="nvarchar(40)">
             </column>
             <column name="time_start"  type="Date" >
               <constraints nullable="true"   />
@@ -20,18 +21,6 @@
              
             </column>
             <column name="image"  type="nvarchar(100)">
-              <constraints nullable="true"   />
-             
-            </column>
-            <column name="price_morning_id"  type="BIGINT">
-              <constraints nullable="true"   />
-             
-            </column>
-            <column name="price_afternoon_id"  type="BIGINT">
-              <constraints nullable="true"   />
-             
-            </column>
-            <column name="price_evening_id"  type="BIGINT">
               <constraints nullable="true"   />
              
             </column>

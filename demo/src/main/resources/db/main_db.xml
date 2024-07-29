@@ -7,12 +7,15 @@
     <include file="classpath:db/create_table_user.xml" relativeToChangelogFile="false" />
     <include file="classpath:db/create_table_logout.xml" relativeToChangelogFile="false" />
     <include file="classpath:db/create_table_yard.xml" relativeToChangelogFile="false" />
-    <include file="classpath:db/create_table_price_morning.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/create_table_price.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/create_add_foreign_key_price.xml" relativeToChangelogFile="false" />
+    <!-- <include file="classpath:db/create_table_price_morning.xml" relativeToChangelogFile="false" />
     <include file="classpath:db/create_table_price_afternoon.xml" relativeToChangelogFile="false" />
     <include file="classpath:db/craete_table_price_evening.xml" relativeToChangelogFile="false" />
     <include file="classpath:db/add_foreign_key_table_yard.xml" relativeToChangelogFile="false" />
+    -->
     <include file="classpath:db/create_table_orders.xml" relativeToChangelogFile="false" />
-    <include file="classpath:db/add_foreign_key_orders.xml" relativeToChangelogFile="false" />
+    <include file="classpath:db/add_foreign_key_orders.xml" relativeToChangelogFile="false" /> 
 
 
 </databaseChangeLog>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="id10" author="add_foreign_key_price">
+         <addForeignKeyConstraint  baseColumnNames="yard_id"
+            baseTableName="price" 
+            constraintName="fk_price_id_yard"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="yard"/>
+    </changeSet>
+</databaseChangeLog>

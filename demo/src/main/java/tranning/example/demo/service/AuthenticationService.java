@@ -142,4 +142,14 @@ public class AuthenticationService {
         }
     }
 
+    @Transactional
+    public void deleteUser(Long user_id) {
+        if (userRepositories.existsById(user_id)) {
+
+            userRepositories.deleteById(user_id);
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
 }

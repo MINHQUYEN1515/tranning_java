@@ -1,7 +1,7 @@
 package tranning.example.demo.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,7 +10,6 @@ import io.github.bucket4j.Bucket;
 
 import io.github.bucket4j.Refill;
 import jakarta.validation.Valid;
-
 import tranning.example.demo.dto.request.AuthenticationRequest;
 import tranning.example.demo.dto.request.ChangePasswordRequest;
 import tranning.example.demo.dto.request.EditProfile;
@@ -151,6 +150,18 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest()
                     .body(new ApiResponse(400, "Change password user faild!", e.getMessage()));
+
+        }
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity postMethodName(@RequestParam Long id) {
+        try {
+            authenticationService.deleteUser(id);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Delete user success!", null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse(400, "Delete user faild!", e.getMessage()));
 
         }
     }

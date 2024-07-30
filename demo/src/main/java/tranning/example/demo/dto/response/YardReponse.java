@@ -1,7 +1,6 @@
 package tranning.example.demo.dto.response;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import tranning.example.demo.model.OrderEntity;
 import tranning.example.demo.model.PriceEntity;
 
 @Data
@@ -18,9 +16,9 @@ import tranning.example.demo.model.PriceEntity;
 public class YardReponse {
     Long id;
     @JsonFormat(pattern = "HH:mm:ss")
-    LocalTime timeStart;
+    LocalDateTime timeStart;
     @JsonFormat(pattern = "HH:mm:ss")
-    LocalTime timeEnd;
+    LocalDateTime timeEnd;
     String name;
     String address;
     String image;

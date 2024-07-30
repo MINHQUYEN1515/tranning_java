@@ -1,8 +1,11 @@
 package tranning.example.demo.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import tranning.example.demo.dto.request.YardRequest;
@@ -35,7 +38,13 @@ public class YardService {
 
     private OrderParseOrderReponse orderParseOrderReponse;
 
-    public List<YardReponse> getAll() {
+    public List<YardReponse> getAll(LocalDateTime date) {
+        LocalDateTime date_query;
+        if (date == null) {
+            date_query = LocalDateTime.now();
+
+        }
+        date_query = date;
         try {
 
             List<YardEntity> yard = yardRepositories.findAll();
@@ -44,12 +53,13 @@ public class YardService {
                 List<OrderReponse> orderReponses = new ArrayList<OrderReponse>();
                 YardReponse temp = YardEntityToYardReponse.parseYardReponse(yard.get(i));
                 List<PriceEntity> price = priceRepositories.findByIdYard(yard.get(i).getId());// Trả về giá
-                List<OrderEntity> order = orderReposotories.findOrderInYard(yard.get(i).getId());// Trả về các order
+                List<OrderEntity> order = orderReposotories.findOrderInYard(yard.get(i).getId(), date);// Trả về các
+                                                                                                       // order
                 for (Integer j = 0; j < order.size(); j++) {// lọc qua các order
                     List<OrdersDetail> orderDetails = orderDetailRepositories.findByOrderId(order.get(j).getId());// Tìm
-                                                                                                                  // các
-                                                                                                                  // order
-                                                                                                                  // item
+                    // các
+                    // order
+                    // item
                     OrderReponse temp1 = orderParseOrderReponse.parse(order.get(j), orderDetails);
                     orderReponses.add(temp1);
                 }

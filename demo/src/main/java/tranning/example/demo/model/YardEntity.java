@@ -32,10 +32,10 @@ public class YardEntity {
     Long id;
     @JsonFormat(pattern = "HH:mm:ss")
     @Column(name = "time_start")
-    LocalTime timeStart;
+    LocalDateTime timeStart;
     @JsonFormat(pattern = "HH:mm:ss")
     @Column(name = "time_end")
-    LocalTime timeEnd;
+    LocalDateTime timeEnd;
     @Column(name = "address")
     String address;
     @Column(name = "image")

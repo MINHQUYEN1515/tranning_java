@@ -3,17 +3,16 @@ package tranning.example.demo.dto.request;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
+import lombok.Setter;
 
 @Data
 @Getter
-
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class PriceRequest {
-
+@Setter
+public class UpdatePrice {
+    @NotNull(message = "Trường id không được bỏ trống")
+    Long id;
     @NotNull(message = "Trường price_type không được bỏ trống")
     Integer price_type;
     @NotNull(message = "Trường price không được bỏ trống")
@@ -23,5 +22,4 @@ public class PriceRequest {
     LocalDateTime time_start;
     @NotNull(message = "Trường time_end không được bỏ trống")
     LocalDateTime time_end;
-
 }

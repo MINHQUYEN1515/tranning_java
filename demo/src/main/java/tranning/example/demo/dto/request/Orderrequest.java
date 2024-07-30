@@ -1,5 +1,6 @@
 package tranning.example.demo.dto.request;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -16,10 +17,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Orderrequest {
     @NotNull(message = "Trường time_start không được để trống")
-    LocalTime time_start;
+    LocalDateTime time_start;
     @NotNull(message = "Trường time_end không được để trống")
 
-    LocalTime time_end;
+    LocalDateTime time_end;
     @NotNull(message = "Trường price không được để trống")
 
     Long price;

@@ -1,5 +1,6 @@
 package tranning.example.demo.model;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -29,9 +30,9 @@ public class OrdersDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Column(name = "time_start")
-    LocalTime timeStart;
+    LocalDateTime timeStart;
     @Column(name = "time_end")
-    LocalTime timeEnd;
+    LocalDateTime timeEnd;
     @Column(name = "status")
     Integer status;
     @Column(name = "price")

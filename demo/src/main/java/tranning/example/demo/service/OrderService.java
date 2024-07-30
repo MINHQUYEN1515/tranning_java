@@ -25,7 +25,14 @@ public class OrderService {
     @Transactional
     public void saveOrder(Orderrequest request) {
         OrderEntity entity = orderReposotories.existsByUser(request.getName(), request.getPhone());
-        if (entity == null) {
+
+        YardEntity yard = yardRepositories.findById(request.getYard_id())
+                .orElseThrow(() -> new RuntimeException("Không thể tìm thấy sân"));
+
+        if (yard.getTimeEservations().contains(request.getTime_start() + "-" + request.getTime_end())) {
+            throw new RuntimeException("Sân đã có người đặt");
+        }
+        if (entity == null || yard.getTimeEservations() == null) {
             // Tạo order
             OrderEntity entity_temp = new OrderEntity();
             entity_temp.setName(request.getName());
@@ -33,9 +40,9 @@ public class OrderService {
             entity_temp.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));
             entity_temp.setSumBill(request.getPrice());
             // Lưu thời gian người đặt nếu trùng thí cảnh báo sân đã có người đặt
-            YardEntity yard = yardRepositories.findById(request.getYard_id())
-                    .orElseThrow(() -> new RuntimeException("Không thể tìm thấy sân"));
-            yard.setTimeEservations(request.getTime_start() + "-" + request.getTime_end());
+
+            yard.setTimeEservations(
+                    yard.getTimeEservations() + "," + request.getTime_start() + "-" + request.getTime_end());
             orderReposotories.save(entity_temp);
             // Tạo order item
             Long id = orderReposotories.getId(request.getName(), request.getPhone());
@@ -50,6 +57,7 @@ public class OrderService {
 
         } else {
             // Tim order item
+
             OrdersDetail ordersDetail = new OrdersDetail();
             ordersDetail.setTimeStart(request.getTime_start());
             ordersDetail.setTimeEnd(request.getTime_end());
@@ -58,15 +66,9 @@ public class OrderService {
             ordersDetail.setYardId(request.getYard_id());
             // Lưu thời gian người đặt nếu trùng thí cảnh báo sân đã có người đặt
 
-            YardEntity yard = yardRepositories.findById(request.getYard_id())
-                    .orElseThrow(() -> new RuntimeException("Không thể tìm thấy sân"));
+            yard.setTimeEservations(
+                    yard.getTimeEservations() + "," + request.getTime_start() + "-" + request.getTime_end());
 
-            if (yard.getTimeEservations().contains(request.getTime_start() + "-" + request.getTime_end())) {
-                throw new RuntimeException("Sân đã có người đặt");
-            } else {
-                yard.setTimeEservations(
-                        yard.getTimeEservations() + "," + request.getTime_start() + "-" + request.getTime_end());
-            }
             ordersDetail.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));
             entity.setSumBill(entity.getSumBill() + request.getPrice());
             entity.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));

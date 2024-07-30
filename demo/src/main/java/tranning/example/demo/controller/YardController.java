@@ -2,7 +2,6 @@ package tranning.example.demo.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,12 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
-import tranning.example.demo.dto.request.YardRequest;
 import tranning.example.demo.dto.response.ApiResponse;
 import tranning.example.demo.service.YardService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(path = "api/v1/yard")
@@ -30,7 +25,7 @@ public class YardController {
 
     @SuppressWarnings("")
     @GetMapping("/getAll")
-    public ResponseEntity signup(@RequestParam("date") LocalDateTime date) {
+    public ResponseEntity signup(@RequestParam("date") LocalDate date) {
 
         return ResponseEntity.ok().body(new ApiResponse(200, "Get All Yard success!", yardService.getAll(date)));
 

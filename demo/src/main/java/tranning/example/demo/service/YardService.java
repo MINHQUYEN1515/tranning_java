@@ -1,11 +1,9 @@
 package tranning.example.demo.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import tranning.example.demo.dto.request.YardRequest;
@@ -38,10 +36,10 @@ public class YardService {
 
     private OrderParseOrderReponse orderParseOrderReponse;
 
-    public List<YardReponse> getAll(LocalDateTime date) {
-        LocalDateTime date_query;
+    public List<YardReponse> getAll(LocalDate date) {
+        LocalDate date_query;
         if (date == null) {
-            date_query = LocalDateTime.now();
+            date_query = LocalDate.now();
 
         }
         date_query = date;

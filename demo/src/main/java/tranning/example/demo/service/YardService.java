@@ -54,7 +54,8 @@ public class YardService {
                 List<OrderEntity> order = orderReposotories.findOrderInYard(yard.get(i).getId(), date);// Trả về các
                                                                                                        // order
                 for (Integer j = 0; j < order.size(); j++) {// lọc qua các order
-                    List<OrdersDetail> orderDetails = orderDetailRepositories.findByOrderId(order.get(j).getId());// Tìm
+                    List<OrdersDetail> orderDetails = orderDetailRepositories.findByOrderId(order.get(j).getId(),
+                            yard.get(i).getId());// Tìm
                     // các
                     // order
                     // item

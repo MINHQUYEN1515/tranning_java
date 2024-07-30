@@ -12,6 +12,7 @@ import io.github.bucket4j.Refill;
 import jakarta.validation.Valid;
 
 import tranning.example.demo.dto.request.AuthenticationRequest;
+import tranning.example.demo.dto.request.ChangePasswordRequest;
 import tranning.example.demo.dto.request.EditProfile;
 import tranning.example.demo.dto.request.LogoutRequest;
 import tranning.example.demo.dto.request.UpdateImage;
@@ -137,6 +138,19 @@ public class UserController {
             return ResponseEntity.ok().body(new ApiResponse(200, "Logout user success!", null));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ApiResponse(400, "Logout user faild!", e.getMessage()));
+
+        }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity postMethodName(@RequestBody @Valid ChangePasswordRequest entity) {
+
+        try {
+            authenticationService.changePassword(entity);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Change password user success!", null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest()
+                    .body(new ApiResponse(400, "Change password user faild!", e.getMessage()));
 
         }
     }

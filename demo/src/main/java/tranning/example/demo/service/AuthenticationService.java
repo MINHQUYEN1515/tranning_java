@@ -21,16 +21,19 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import tranning.example.demo.Config.AppConfig;
 import tranning.example.demo.dto.request.AuthenticationRequest;
+import tranning.example.demo.dto.request.ChangePasswordRequest;
 import tranning.example.demo.dto.request.LogoutRequest;
 import tranning.example.demo.exception.AppException;
 import tranning.example.demo.exception.ErrorCode;
 import tranning.example.demo.model.Logout;
+import tranning.example.demo.model.UserEntity;
 import tranning.example.demo.reponsitories.Logoutrepositories;
 import tranning.example.demo.reponsitories.UserRepositories;
 
@@ -126,6 +129,17 @@ public class AuthenticationService {
 
     public void deleteRowsLogoutTable() {
         invalidatedTokenRepository.deleteRowsLogoutTable();
+    }
+
+    @Transactional
+    public void changePassword(ChangePasswordRequest request) {
+        UserEntity user = userRepositories.findById(request.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (passwordEncoder.matches(request.getCurrent_password(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(request.getNew_password()));
+        } else {
+            throw new RuntimeException("Password not match! ");
+        }
     }
 
 }

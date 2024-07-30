@@ -7,6 +7,8 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +32,9 @@ public class OrdersDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Column(name = "time_start")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime timeStart;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "time_end")
     LocalDateTime timeEnd;
     @Column(name = "status")
@@ -43,9 +47,13 @@ public class OrdersDetail {
     Long yardId;
     @CreationTimestamp
     @Column(name = "created_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     Date updatedAt;
 
 }

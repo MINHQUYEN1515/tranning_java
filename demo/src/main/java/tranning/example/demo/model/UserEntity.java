@@ -59,12 +59,15 @@ public class UserEntity {
         return updated_at;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public String getRole() {
         return role;
     }
 
     String image;
-    // @UniqueEmail
     String email;
     @JsonIgnore
     String password;

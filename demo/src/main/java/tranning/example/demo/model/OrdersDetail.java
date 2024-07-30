@@ -1,5 +1,6 @@
 package tranning.example.demo.model;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,9 +29,9 @@ public class OrdersDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Column(name = "time_start")
-    Date timeStart;
+    LocalTime timeStart;
     @Column(name = "time_end")
-    Date timeEnd;
+    LocalTime timeEnd;
     @Column(name = "status")
     Integer status;
     @Column(name = "price")

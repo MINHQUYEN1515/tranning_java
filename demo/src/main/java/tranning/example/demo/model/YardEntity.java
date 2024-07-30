@@ -40,6 +40,8 @@ public class YardEntity {
     String address;
     @Column(name = "image")
     String image;
+    @Column(name = "name")
+    String name;
     @Column(name = "time_eservations")
     String timeEservations;
     @CreationTimestamp

@@ -33,17 +33,6 @@ public class YardController {
 
     }
 
-    @GetMapping("/getById/{id}")
-    public ResponseEntity getMethodName(@PathVariable("id") Long id) {
-        try {
-            return ResponseEntity.ok().body(new ApiResponse(200, "Get All Yard success!", yardService.getById(id)));
-        } catch (Exception e) {
-            return ResponseEntity.ok().body(new ApiResponse(500, "Get Yard faild!", e.getMessage()));
-
-        }
-
-    }
-
     @PostMapping("/create-yard")
     public ResponseEntity postMethodName(@RequestBody @Valid YardRequest entity) {
         try {

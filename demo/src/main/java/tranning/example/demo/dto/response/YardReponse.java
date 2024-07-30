@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import tranning.example.demo.model.OrderEntity;
+import tranning.example.demo.model.PriceEntity;
 
 @Data
 @Getter
@@ -19,10 +21,12 @@ public class YardReponse {
     LocalTime timeStart;
     @JsonFormat(pattern = "HH:mm:ss")
     LocalTime timeEnd;
+    String name;
     String address;
     String image;
-    List<Object> price;
-    String timeEservations;
+    Integer status;
+    List<PriceEntity> price;
+    List<OrderReponse> timeEservations;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

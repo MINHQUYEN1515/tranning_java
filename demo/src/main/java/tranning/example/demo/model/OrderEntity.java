@@ -34,7 +34,7 @@ public class OrderEntity {
     @Column(name = "yard_id")
     Long yardId;
     @Column(name = "status")
-    Integer price;
+    Integer status;
     @Column(name = "sum_bill")
     Long sumBill;
     @CreationTimestamp

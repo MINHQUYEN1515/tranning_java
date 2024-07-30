@@ -1,6 +1,6 @@
 package tranning.example.demo.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,12 +28,14 @@ public class PriceEntity {
     Long id;
     @Column(name = "type_price")
     Integer typePrice;
+    @Column(name = "price")
     Long price;
     @Column(name = "time_start")
-    LocalDate timeStart;
+    LocalDateTime timeStart;
+    @Column(name = "status")
+    Integer status;
     @Column(name = "time_end")
-    LocalDate timeEnd;
-    @JsonIgnore
+    LocalDateTime timeEnd;
     @Column(name = "yard_id")
     Long yardId;
 

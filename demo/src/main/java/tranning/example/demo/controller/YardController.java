@@ -25,7 +25,8 @@ public class YardController {
 
     @SuppressWarnings("")
     @GetMapping("/getAll")
-    public ResponseEntity signup(@RequestParam("date") LocalDate date) {
+    public ResponseEntity signup(
+            @RequestParam(required = false) LocalDate date) {
 
         return ResponseEntity.ok().body(new ApiResponse(200, "Get All Yard success!", yardService.getAll(date)));
 

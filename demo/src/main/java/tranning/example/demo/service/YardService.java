@@ -37,12 +37,7 @@ public class YardService {
     private OrderParseOrderReponse orderParseOrderReponse;
 
     public List<YardReponse> getAll(LocalDate date) {
-        LocalDate date_query;
-        if (date == null) {
-            date_query = LocalDate.now();
-
-        }
-        date_query = date;
+        LocalDate date_query = date == null ? LocalDate.now() : date;
         try {
 
             List<YardEntity> yard = yardRepositories.findAll();
@@ -51,8 +46,9 @@ public class YardService {
                 List<OrderReponse> orderReponses = new ArrayList<OrderReponse>();
                 YardReponse temp = YardEntityToYardReponse.parseYardReponse(yard.get(i));
                 List<PriceEntity> price = priceRepositories.findByIdYard(yard.get(i).getId());// Trả về giá
-                List<OrderEntity> order = orderReposotories.findOrderInYard(yard.get(i).getId(), date);// Trả về các
-                                                                                                       // order
+                List<OrderEntity> order = orderReposotories.findOrderInYard(yard.get(i).getId(), date_query);// Trả về
+                                                                                                             // các
+                // order
                 for (Integer j = 0; j < order.size(); j++) {// lọc qua các order
                     List<OrdersDetail> orderDetails = orderDetailRepositories.findByOrderId(order.get(j).getId(),
                             yard.get(i).getId());// Tìm

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import tranning.example.demo.dto.request.Orderrequest;
 import tranning.example.demo.dto.response.ApiResponse;
-import tranning.example.demo.model.OrderEntity;
 import tranning.example.demo.service.OrderService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +21,14 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/order-yard")
-    public ResponseEntity postMethodName(@RequestBody @Valid Orderrequest entity) {
+    public ResponseEntity postMethodName(@RequestBody @Valid Orderrequest request) {
         try {
-            OrderEntity entity_reponse = orderService.order(entity);
-            return ResponseEntity.ok()
-                    .body(new ApiResponse(200, "Create order success!", entity_reponse));
+            orderService.saveOrder(request);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Save order success!", null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest()
-                    .body(new ApiResponse(400, "Create order faild", e.getMessage()));
-        }
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Save order faild!", e.getMessage()));
 
+        }
     }
 
 }

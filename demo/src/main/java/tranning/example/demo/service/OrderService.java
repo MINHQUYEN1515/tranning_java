@@ -5,39 +5,76 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import tranning.example.demo.dto.request.Orderrequest;
-import tranning.example.demo.mapper.OrderrequestParseOrderEntity;
 import tranning.example.demo.model.OrderEntity;
-import tranning.example.demo.model.YardItemEntity;
-import tranning.example.demo.model.enums.Status_Yard;
+import tranning.example.demo.model.OrdersDetail;
+import tranning.example.demo.model.YardEntity;
+import tranning.example.demo.model.enums.StatusOrder;
+import tranning.example.demo.reponsitories.OrderDetailRepositories;
 import tranning.example.demo.reponsitories.OrderReposotories;
-import tranning.example.demo.reponsitories.YardItemRepositories;
+import tranning.example.demo.reponsitories.YardRepositories;
 
 @Service
 public class OrderService {
     @Autowired
     private OrderReposotories orderReposotories;
-
     @Autowired
-    private YardItemRepositories yardItemRepositories;
-
-    private OrderrequestParseOrderEntity mapper;
+    private OrderDetailRepositories detailRepositories;
+    @Autowired
+    private YardRepositories yardRepositories;
 
     @Transactional
-    public OrderEntity order(Orderrequest request) {
-        OrderEntity entity = mapper.parsetoEntity(request);
-        orderReposotories.save(entity);
-        YardItemEntity yard_item = yardItemRepositories.findById(request.getYard_item_id())
-                .orElseThrow(() -> new RuntimeException("Cannot found yard_item"));
-        System.out.print(yard_item.getStatus().toString() == Status_Yard.CHUA_DAT.name().toString());
-        if (yard_item.getStatus().compareTo(Status_Yard.CHUA_DAT.name()) == 0) {
-            yard_item.setStatus(Status_Yard.getStatus(request.getPrice()));
-        } else if (yard_item.getStatus().contains(Status_Yard.getStatus(request.getPrice())) == true) {
-            throw new RuntimeException("Khung giờ này đã có người dặt");
+    public void saveOrder(Orderrequest request) {
+        OrderEntity entity = orderReposotories.existsByUser(request.getName(), request.getPhone());
+        if (entity == null) {
+            // Tạo order
+            OrderEntity entity_temp = new OrderEntity();
+            entity_temp.setName(request.getName());
+            entity_temp.setPhone(request.getPhone());
+            entity_temp.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));
+            entity_temp.setSumBill(request.getPrice());
+            // Lưu thời gian người đặt nếu trùng thí cảnh báo sân đã có người đặt
+            YardEntity yard = yardRepositories.findById(request.getYard_id())
+                    .orElseThrow(() -> new RuntimeException("Không thể tìm thấy sân"));
+            yard.setTimeEservations(request.getTime_start() + "-" + request.getTime_end());
+            orderReposotories.save(entity_temp);
+            // Tạo order item
+            Long id = orderReposotories.getId(request.getName(), request.getPhone());
+            OrdersDetail ordersDetail = new OrdersDetail();
+            ordersDetail.setTimeStart(request.getTime_start());
+            ordersDetail.setTimeEnd(request.getTime_end());
+            ordersDetail.setPrice(request.getPrice());
+            ordersDetail.setOrderId(id);
+            ordersDetail.setYardId(request.getYard_id());
+            ordersDetail.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));
+            detailRepositories.save(ordersDetail);
+
         } else {
-            yard_item.setStatus(yard_item.getStatus() + "," + Status_Yard.getStatus(request.getPrice()));
+            // Tim order item
+            OrdersDetail ordersDetail = new OrdersDetail();
+            ordersDetail.setTimeStart(request.getTime_start());
+            ordersDetail.setTimeEnd(request.getTime_end());
+            ordersDetail.setPrice(request.getPrice());
+            ordersDetail.setOrderId(entity.getId());
+            ordersDetail.setYardId(request.getYard_id());
+            // Lưu thời gian người đặt nếu trùng thí cảnh báo sân đã có người đặt
+
+            YardEntity yard = yardRepositories.findById(request.getYard_id())
+                    .orElseThrow(() -> new RuntimeException("Không thể tìm thấy sân"));
+
+            if (yard.getTimeEservations().contains(request.getTime_start() + "-" + request.getTime_end())) {
+                throw new RuntimeException("Sân đã có người đặt");
+            } else {
+                yard.setTimeEservations(
+                        yard.getTimeEservations() + "," + request.getTime_start() + "-" + request.getTime_end());
+            }
+            ordersDetail.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));
+            entity.setSumBill(entity.getSumBill() + request.getPrice());
+            entity.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));
+            detailRepositories.save(ordersDetail);
+            orderReposotories.save(entity);
 
         }
-        yardItemRepositories.save(yard_item);
-        return entity;
+
     }
+
 }

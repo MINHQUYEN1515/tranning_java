@@ -2,11 +2,10 @@ package tranning.example.demo.model;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,36 +20,32 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "yard")
+@Table(name = "order_detail")
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class YardEntity {
+public class OrdersDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @JsonFormat(pattern = "HH:mm:ss")
     @Column(name = "time_start")
     LocalDateTime timeStart;
-    @JsonFormat(pattern = "HH:mm:ss")
     @Column(name = "time_end")
     LocalDateTime timeEnd;
-    @Column(name = "address")
-    String address;
-    @Column(name = "image")
-    String image;
-    @Column(name = "name")
-    String name;
-    @Column(name = "time_eservations")
-    String timeEservations;
+    @Column(name = "status")
+    Integer status;
+    @Column(name = "price")
+    Long price;
+    @Column(name = "order_id")
+    Long orderId;
+    @Column(name = "yard_id")
+    Long yardId;
     @CreationTimestamp
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "created_at")
-    LocalDateTime createdAt;
+    Date createdAt;
     @UpdateTimestamp
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "updated_at")
-    LocalDateTime updatedAt;
+    Date updatedAt;
 
 }

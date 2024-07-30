@@ -27,7 +27,9 @@ public class SecurityConfig {
                         "/api/v1/user/image/**",
                         "/api/v1/user/logout",
                         "/api/v1/user/delete",
-                        "api/v1/yard/image/**"
+                        "api/v1/yard/image/**",
+                        "api/v1/yard/getAll",
+                        "api/v1/order/order-yard"
 
         };
         @Autowired

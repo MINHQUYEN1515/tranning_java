@@ -1,9 +1,8 @@
 package tranning.example.demo.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,29 +17,26 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "price")
 @Data
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OrderEntity {
+public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name = "phone")
-    String phone;
-    @Column(name = "name")
-    String name;
-    @Column(name = "yard_id")
-    Long yardId;
+    @Column(name = "type_price")
+    Integer typePrice;
+    @Column(name = "price")
+    Long price;
+    @Column(name = "time_start")
+    LocalDateTime timeStart;
     @Column(name = "status")
     Integer status;
-    @Column(name = "sum_bill")
-    Long sumBill;
-    @CreationTimestamp
-    @Column(name = "created_at")
-    Date createdAt;
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    Date updatedAt;
+    @Column(name = "time_end")
+    LocalDateTime timeEnd;
+    @Column(name = "yard_id")
+    Long yardId;
+
 }

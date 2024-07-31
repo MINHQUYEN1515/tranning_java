@@ -1,5 +1,6 @@
 package tranning.example.demo.model;
 
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -38,7 +39,7 @@ public class YardEntity {
     @Column(name = "address")
     String address;
     @Column (name = "status")
-    String status;
+    Integer status;
     @Column(name = "image")
     String image;
     @Column(name = "name")
@@ -53,5 +54,18 @@ public class YardEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "updated_at")
     LocalDateTime updatedAt;
+
+    public String getImageName() {
+        return image;
+    }
+    public String getImage() {
+        return image != null ? InetAddress.getLoopbackAddress().getHostName() + ":8080" + "/api/v1/user/image/" + image
+                : image;
+    }
+
+   
+
+
+    
 
 }

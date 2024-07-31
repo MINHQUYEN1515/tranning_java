@@ -46,7 +46,6 @@ public class YardController {
             request.setTime_start(yard.getTimeStart());
             request.setTime_end(yard.getTimeEnd());
             request.setAddress(yard.getAddress());
-            request.setImage(yard.getImage());
             request.setStatus(yard.getStatus());
             return ResponseEntity.ok().body(request);
         } catch (Exception e) {

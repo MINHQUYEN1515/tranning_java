@@ -12,7 +12,6 @@ public class YardRequestToYard {
         yard.setAddress(request.getAddress());
         yard.setStatus(request.getStatus());
         yard.setImage(request.getImage());
-
         return yard;
 
     }

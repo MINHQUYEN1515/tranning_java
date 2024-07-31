@@ -69,10 +69,11 @@ public class YardService {
     }
 
     @Transactional
-    public void craeteYard(YardRequest request) {
+    public YardEntity craeteYard(YardRequest request) {
         try {
             YardEntity yard = mapper.parseToYard(request);
             yardRepositories.save(yard);
+            return yard;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

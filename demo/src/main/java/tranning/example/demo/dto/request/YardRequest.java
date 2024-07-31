@@ -17,8 +17,12 @@ public class YardRequest {
     @NotNull(message = "Trường time_end không được để trống")
     LocalDateTime time_end;
     @NotNull(message = "Trường addres không được để trống")
-    String Address;
+    String address;
+    @NotNull(message = "Trường name không được để trống")
+
     String name;
+    @NotNull(message = "Trường status không được để trống")
+
     String status;
-    String image;
+
 }

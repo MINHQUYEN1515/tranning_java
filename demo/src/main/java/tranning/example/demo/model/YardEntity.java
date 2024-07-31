@@ -1,7 +1,6 @@
 package tranning.example.demo.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -38,6 +37,8 @@ public class YardEntity {
     LocalDateTime timeEnd;
     @Column(name = "address")
     String address;
+    @Column (name = "status")
+    String status;
     @Column(name = "image")
     String image;
     @Column(name = "name")

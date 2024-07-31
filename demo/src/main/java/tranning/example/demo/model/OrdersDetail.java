@@ -1,7 +1,7 @@
 package tranning.example.demo.model;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;

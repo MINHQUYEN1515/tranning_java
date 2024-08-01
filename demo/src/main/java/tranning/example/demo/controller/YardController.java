@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import tranning.example.demo.dto.request.UpdateYardImage;
 import tranning.example.demo.dto.request.YardRequest;
 import tranning.example.demo.dto.response.ApiResponse;
 import tranning.example.demo.model.YardEntity;
@@ -57,6 +58,17 @@ public class YardController {
     @GetMapping(value = "/image/{image}", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] getimage(@PathVariable("image") String image) throws IOException {
         return getClass().getResourceAsStream("/static/yard/" + image).readAllBytes();
+    }
+
+    @PostMapping(value = "/update-image", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity postMethodName(@Valid UpdateYardImage file) {
+        try {
+            boolean yard = yardService.UpdateYardImage(file);
+            return ResponseEntity.ok().body(new ApiResponse(200, "Update user success!", yard));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Update user faild!", e.getMessage()));
+
+        }
     }
 
 }

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
-import tranning.example.demo.dto.request.UpdateImage;
+import tranning.example.demo.dto.request.UpdateYardImage;
 import tranning.example.demo.dto.request.YardRequest;
 import tranning.example.demo.dto.response.OrderReponse;
 import tranning.example.demo.dto.response.YardReponse;
@@ -40,7 +40,7 @@ public class YardService {
     private static final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
     private static Random generator = new Random();
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir")
-            + "/demo/src/main/resources/static/image/";
+            + "/demo/src/main/resources/static/yard/";
     private final Path root = Paths.get(UPLOAD_DIRECTORY);
     
     @Autowired
@@ -103,13 +103,13 @@ public class YardService {
 
     }
 
-    public boolean updateImage(UpdateImage file) {
+    public boolean UpdateYardImage(UpdateYardImage file) {
         if (file.getImage().isEmpty()) {
 
             return false;
         }
 
-        YardEntity yard = yardRepositories.findById(file.getUser_id())
+        YardEntity yard = yardRepositories.findById(file.getYard_id())
                 .orElseThrow(() -> new RuntimeException("User Not Found"));
         if (yard.getImage() != null) {
             File file_delete = new File(UPLOAD_DIRECTORY + yard.getImageName());

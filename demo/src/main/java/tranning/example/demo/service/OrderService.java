@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import tranning.example.demo.dto.request.ChangeTimeOrder;
+import tranning.example.demo.dto.request.DeleteOrderRequest;
 import tranning.example.demo.dto.request.Orderrequest;
 import tranning.example.demo.model.OrderEntity;
 import tranning.example.demo.model.OrdersDetail;
@@ -76,6 +78,46 @@ public class OrderService {
             orderReposotories.save(entity);
 
         }
+
+    }
+
+    @Transactional
+    public void deleteOrder(DeleteOrderRequest request) {
+        OrderEntity orderEntity = orderReposotories.findById(request.getOrder_id())
+                .orElseThrow(() -> new RuntimeException("Order Not found"));
+        OrdersDetail ordersDetail = detailRepositories.findById(request.getOrder_detail_id())
+                .orElseThrow(() -> new RuntimeException("Order Not found"));
+        orderEntity.setSumBill(orderEntity.getSumBill() - ordersDetail.getPrice());
+        if (orderEntity.getSumBill() == 0) {
+            orderReposotories.delete(orderEntity);
+        }
+        detailRepositories.delete(ordersDetail);
+    }
+
+    @Transactional
+    public void changeTime(ChangeTimeOrder request) {
+        OrdersDetail ordersDetail = detailRepositories.findById(request.getOrder_detail_id())
+                .orElseThrow(() -> new RuntimeException("Order Detail not found"));
+        YardEntity yardEntity = yardRepositories.findById(ordersDetail.getYardId())
+                .orElseThrow(() -> new RuntimeException("Yard not found"));
+        // Lấy giá cũ
+        Long price_current = ordersDetail.getPrice();
+        // Checl thời gian trống
+        if (yardEntity.getTimeEservations().contains(request.getTime_start() + "-" + request.getTime_end())) {
+            throw new RuntimeException("Sân đã có người đặt");
+        }
+        // Thay thế thời gian đặt sân
+        String time_replace = yardEntity.getTimeEservations().replace(
+                ordersDetail.getTimeStart() + "-" + ordersDetail.getTimeEnd(),
+                request.getTime_start() + "-" + request.getTime_end());
+        yardEntity.setTimeEservations(time_replace);
+        // Lưu vào database
+        orderReposotories.setSumbill(price_current, ordersDetail.getOrderId(), request.getPrice());
+        ordersDetail.setPrice(request.getPrice());
+        ordersDetail.setTimeStart(request.getTime_start());
+        ordersDetail.setTimeEnd(request.getTime_end());
+        detailRepositories.save(ordersDetail);
+        yardRepositories.save(yardEntity);
 
     }
 

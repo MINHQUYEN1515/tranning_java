@@ -13,4 +13,5 @@ import tranning.example.demo.model.PriceEntity;
 public interface PriceRepositories extends JpaRepository<PriceEntity, Long> {
     @Query(value = "Select *from price where yard_id=:id and status=1", nativeQuery = true)
     public List<PriceEntity> findByIdYard(@Param("id") Long id);
+
 }

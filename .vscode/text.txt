@@ -1,12 +1,10 @@
-Le Minh Quyen's report - DATE :2024.07.26
+Le Minh Quyen's report - DATE :2024.08.01
 
 1. What have you done since the last DSM? 
-	- Make Api logout(0/4)
-	- Checkbug(0/4)
+	- Làm api hủy sân và api chuyển thời gian đặt sân(2/8)
 	
 2. What do you intend to do before the next DSM? 
-	- Make Api return info Badminton yard(4/4)
-	- Check bug
+	- Waiting for new task	
 	
 3. Do you have any issue which block your work? 
 	* None

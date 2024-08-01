@@ -21,8 +21,5 @@ public class YardRequest {
     @NotNull(message = "Trường name không được để trống")
 
     String name;
-    @NotNull(message = "Trường status không được để trống")
-
-    String status;
 
 }

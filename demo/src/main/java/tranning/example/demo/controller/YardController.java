@@ -28,7 +28,6 @@ public class YardController {
     @Autowired
     private YardService yardService;
 
-    @SuppressWarnings("")
     @GetMapping("/getAll")
     public ResponseEntity signup(
             @RequestParam(required = false) LocalDate date) {
@@ -36,9 +35,9 @@ public class YardController {
         return ResponseEntity.ok().body(new ApiResponse(200, "Get All Yard success!", yardService.getAll(date)));
 
     }
-    
+
     @PostMapping("/odrer-detail")
-   
+
     public ResponseEntity postMethodName(@RequestBody @Valid YardRequest request) {
 
         try {
@@ -47,8 +46,6 @@ public class YardController {
             request.setTime_start(yard.getTimeStart());
             request.setTime_end(yard.getTimeEnd());
             request.setAddress(yard.getAddress());
-            request.setImage(yard.getImage());
-            request.setStatus(yard.getStatus());
             return ResponseEntity.ok().body(request);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ApiResponse(400, "Create yard faild", e.getMessage()));

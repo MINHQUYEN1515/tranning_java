@@ -37,8 +37,8 @@ public class YardEntity {
     LocalDateTime timeEnd;
     @Column(name = "address")
     String address;
-    @Column (name = "status")
-    String status;
+    @Column(name = "status")
+    Integer status;
     @Column(name = "image")
     String image;
     @Column(name = "name")

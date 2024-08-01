@@ -2,6 +2,8 @@ package tranning.example.demo.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,12 +31,16 @@ public class PriceEntity {
     @Column(name = "price")
     Long price;
     @Column(name = "time_start")
+    @JsonFormat(pattern = "HH:mm:ss")
+
     LocalDateTime timeStart;
     @Column(name = "status")
     Integer status;
     @Column(name = "time_end")
+    @JsonFormat(pattern = "HH:mm:ss")
     LocalDateTime timeEnd;
     @Column(name = "yard_id")
+
     Long yardId;
 
 }

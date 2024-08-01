@@ -10,8 +10,7 @@ public class YardRequestToYard {
         yard.setTimeStart(request.getTime_start());
         yard.setTimeEnd(request.getTime_end());
         yard.setAddress(request.getAddress());
-        yard.setStatus(request.getStatus());
-        yard.setImage(request.getImage());
+        yard.setStatus(1);
 
         return yard;
 

@@ -87,11 +87,19 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order Not found"));
         OrdersDetail ordersDetail = detailRepositories.findById(request.getOrder_detail_id())
                 .orElseThrow(() -> new RuntimeException("Order Not found"));
+        YardEntity yardEntity = yardRepositories.findById(ordersDetail.getYardId())
+                .orElseThrow(() -> new RuntimeException("Yard Not found"));
+
         orderEntity.setSumBill(orderEntity.getSumBill() - ordersDetail.getPrice());
+        String time_replace = yardEntity.getTimeEservations().replace(
+                ordersDetail.getTimeStart() + "-" + ordersDetail.getTimeEnd(),
+                "");
+        yardEntity.setTimeEservations(time_replace);
         if (orderEntity.getSumBill() == 0) {
             orderReposotories.delete(orderEntity);
         }
         detailRepositories.delete(ordersDetail);
+        yardRepositories.save(yardEntity);
     }
 
     @Transactional

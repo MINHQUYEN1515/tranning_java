@@ -34,7 +34,7 @@ public class PriceService {
     }
 
     public List<PriceEntity> getAll() {
-        return priceRepositories.findAll();
+        return priceRepositories.getAll();
     }
 
     @Transactional
@@ -50,6 +50,6 @@ public class PriceService {
 
     @Transactional
     public void deletePrice(Long id) {
-        priceRepositories.deleteById(id);
+        priceRepositories.deletePrice(id);
     }
 }

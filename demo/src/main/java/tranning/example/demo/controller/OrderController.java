@@ -28,7 +28,7 @@ public class OrderController {
             orderService.saveOrder(request);
             return ResponseEntity.ok().body(new ApiResponse(200, "Save order success!", null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ApiResponse(400, "Save order faild!", e.getMessage()));
+            return ResponseEntity.ok().body(new ApiResponse(999, "Save order faild!", e.getMessage()));
 
         }
     }

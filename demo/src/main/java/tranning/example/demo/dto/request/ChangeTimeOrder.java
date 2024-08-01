@@ -24,4 +24,6 @@ public class ChangeTimeOrder {
     LocalDateTime time_end;
     @NotNull(message = "Trường price không được bỏ trống")
     Long price;
+    @NotNull(message = "Trường yard_id không được bỏ trống")
+    Long yard_id;
 }

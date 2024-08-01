@@ -13,8 +13,8 @@ import tranning.example.demo.model.OrderEntity;
 
 @Repository
 public interface OrderReposotories extends JpaRepository<OrderEntity, Long> {
-    @Query(value = "Select orders.* From orders,order_detail,yard where orders.id=order_detail.order_id and order_detail.yard_id=:id and Day(orders.updated_at)=Day(:date) and Month(orders.updated_at)=Month(:date) group by orders.id", nativeQuery = true)
-    public List<OrderEntity> findOrderInYard(@Param("id") Long id, @Param("date") LocalDate date);
+    @Query(value = "Select orders.* From orders,order_detail,yard where orders.id=order_detail.order_id and order_detail.yard_id=:id  group by orders.id", nativeQuery = true)
+    public List<OrderEntity> findOrderInYard(@Param("id") Long id);
 
     @Query(value = "select * from orders where name=:name and phone=:phone", nativeQuery = true)
     public OrderEntity existsByUser(@Param("name") String name, @Param("phone") String phone);

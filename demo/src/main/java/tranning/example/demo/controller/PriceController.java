@@ -61,7 +61,6 @@ public class PriceController {
             return ResponseEntity.ok().body(new ApiResponse(200, "Delete price success!", null));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ApiResponse(400, "Delete price faild", e.getMessage()));
-
         }
     }
 
@@ -69,9 +68,9 @@ public class PriceController {
     public ResponseEntity postMethodName(@RequestBody @Valid DeletePrice request) {
         try {
             priceService.deletePrice(request.getId());
-            return ResponseEntity.ok().body(new ApiResponse(200, "Update price success!", null));
+            return ResponseEntity.ok().body(new ApiResponse(200, "Delete price success!", null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ApiResponse(400, "Update price faild", e.getMessage()));
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Delete price faild", e.getMessage()));
 
         }
     }

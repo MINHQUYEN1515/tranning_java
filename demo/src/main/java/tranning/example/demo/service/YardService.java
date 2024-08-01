@@ -46,17 +46,21 @@ public class YardService {
                 List<OrderReponse> orderReponses = new ArrayList<OrderReponse>();
                 YardReponse temp = YardEntityToYardReponse.parseYardReponse(yard.get(i));
                 List<PriceEntity> price = priceRepositories.findByIdYard(yard.get(i).getId());// Trả về giá
-                List<OrderEntity> order = orderReposotories.findOrderInYard(yard.get(i).getId(), date_query);// Trả về
-                                                                                                             // các
+                List<OrderEntity> order = orderReposotories.findOrderInYard(yard.get(i).getId());// Trả về
+                                                                                                 // các
                 // order
                 for (Integer j = 0; j < order.size(); j++) {// lọc qua các order
                     List<OrdersDetail> orderDetails = orderDetailRepositories.findByOrderId(order.get(j).getId(),
-                            yard.get(i).getId());// Tìm
+                            yard.get(i).getId(), date_query);// Tìm
                     // các
                     // order
                     // item
                     OrderReponse temp1 = orderParseOrderReponse.parse(order.get(j), orderDetails);
-                    orderReponses.add(temp1);
+                    if (!temp1.getOrderDetailList().isEmpty()) {
+
+                        orderReponses.add(temp1);
+                    }
+
                 }
                 temp.setPrice(price);
                 temp.setTimeEservations(orderReponses);

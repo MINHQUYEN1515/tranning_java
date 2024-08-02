@@ -105,8 +105,17 @@ public class OrderService {
                 if (orderEntity.getSumBill() == 0) {
                         orderReposotories.delete(orderEntity);
                 }
-                detailRepositories.delete(ordersDetail);
+                // Tạo report
+                ReportEntity reportEntity = new ReportEntity();
+                reportEntity.setContent(request.getMessage_delete());
+                reportEntity.setOrderDetailId(ordersDetail.getId());
+                reportEntity.setStatus(1);
+                reportEntity.setType(Constant.typeReport.get("report_delete"));
+                // Tạo hóa đơn mới
+                ordersDetail.setStatus(0);
+                detailRepositories.save(ordersDetail);
                 yardRepositories.save(yardEntity);
+                reportReposirories.save(reportEntity);
         }
 
         @Transactional

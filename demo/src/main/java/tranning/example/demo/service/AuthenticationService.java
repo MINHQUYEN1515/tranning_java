@@ -32,9 +32,9 @@ import tranning.example.demo.dto.request.ChangePasswordRequest;
 import tranning.example.demo.dto.request.LogoutRequest;
 import tranning.example.demo.exception.AppException;
 import tranning.example.demo.exception.ErrorCode;
-import tranning.example.demo.model.Logout;
+import tranning.example.demo.model.LogoutEntity;
 import tranning.example.demo.model.UserEntity;
-import tranning.example.demo.reponsitories.Logoutrepositories;
+import tranning.example.demo.reponsitories.LogoutRedisRepositories;
 import tranning.example.demo.reponsitories.UserRepositories;
 
 @Service
@@ -43,8 +43,9 @@ import tranning.example.demo.reponsitories.UserRepositories;
 public class AuthenticationService {
     @Autowired
     UserRepositories userRepositories;
+
     @Autowired
-    Logoutrepositories invalidatedTokenRepository;
+    private LogoutRedisRepositories redisRepositories;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -97,11 +98,10 @@ public class AuthenticationService {
 
             String jit = signToken.getJWTClaimsSet().getJWTID();
             Date expiryTime = signToken.getJWTClaimsSet().getExpirationTime();
-
-            Logout invalidatedToken = new Logout();
+            LogoutEntity invalidatedToken = new LogoutEntity();
             invalidatedToken.setId(jit);
             invalidatedToken.setExpiration_date(expiryTime);
-            invalidatedTokenRepository.save(invalidatedToken);
+            redisRepositories.save(invalidatedToken);
         } catch (AppException exception) {
             System.out.print(exception.getMessage());
         }
@@ -122,14 +122,10 @@ public class AuthenticationService {
         if (!(verified && expiryTime.after(new Date())))
             throw new AppException(ErrorCode.UNAUTHENTICATED);
 
-        if (invalidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID()))
+        if (redisRepositories.existsById(signedJWT.getJWTClaimsSet().getJWTID()))
             throw new AppException(ErrorCode.UNAUTHENTICATED);
 
         return signedJWT;
-    }
-
-    public void deleteRowsLogoutTable() {
-        invalidatedTokenRepository.deleteRowsLogoutTable();
     }
 
     @Transactional

@@ -9,4 +9,7 @@ public class Constant {
         typeReport.put("report_delete", 1);
         typeReport.put("report_change_time", 2);
     }
+    public static final String redisHost = "localhost";
+    public static final Integer port = 6379;
+
 }

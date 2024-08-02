@@ -28,7 +28,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -164,12 +163,6 @@ public class UserController {
                     .body(new ApiResponse(400, "Delete user faild!", e.getMessage()));
 
         }
-    }
-
-    @Scheduled(cron = "0 * * * *")
-    @GetMapping("/delete")
-    public void getMethodName() {
-        authenticationService.deleteRowsLogoutTable();
     }
 
 }

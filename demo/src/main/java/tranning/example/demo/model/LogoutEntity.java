@@ -1,24 +1,25 @@
 package tranning.example.demo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import jakarta.persistence.Entity;
+import org.springframework.data.redis.core.RedisHash;
+
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-@Table(name = "logout")
-@Data
+@RedisHash("logout")
 @Getter
 @Setter
+@Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Entity
-public class Logout {
+public class LogoutEntity implements Serializable {
     @Id
     String id;
     Date expiration_date;
+
 }

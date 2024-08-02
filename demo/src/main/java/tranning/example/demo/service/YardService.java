@@ -40,7 +40,7 @@ public class YardService {
         LocalDate date_query = date == null ? LocalDate.now() : date;
         try {
 
-            List<YardEntity> yard = yardRepositories.findAll();
+            List<YardEntity> yard = yardRepositories.getAll();
             List<YardReponse> yardReponses = new ArrayList<YardReponse>();
             for (Integer i = 0; i < yard.size(); i++) {// duyệt qua các sân
                 List<OrderReponse> orderReponses = new ArrayList<OrderReponse>();
@@ -82,6 +82,16 @@ public class YardService {
             throw new RuntimeException(e.getMessage());
         }
 
+    }
+
+    @Transactional
+    public void deleteYard(Long id) {
+        yardRepositories.deleteYard(id);
+    }
+
+    @Transactional
+    public void enableYard(Long id) {
+        yardRepositories.enableYard(id);
     }
 
 }

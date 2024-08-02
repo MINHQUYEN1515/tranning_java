@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import tranning.example.demo.dto.request.DeleteCustome;
 import tranning.example.demo.dto.request.DeletePrice;
 import tranning.example.demo.dto.request.PriceRequest;
 import tranning.example.demo.dto.request.UpdatePrice;
@@ -58,9 +59,9 @@ public class PriceController {
     public ResponseEntity updatePrice(@RequestBody @Valid UpdatePrice entity) {
         try {
             priceService.updatePrice(entity);
-            return ResponseEntity.ok().body(new ApiResponse(200, "Delete price success!", null));
+            return ResponseEntity.ok().body(new ApiResponse(200, "Update price success!", null));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ApiResponse(400, "Delete price faild", e.getMessage()));
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Update price faild", e.getMessage()));
         }
     }
 
@@ -71,6 +72,17 @@ public class PriceController {
             return ResponseEntity.ok().body(new ApiResponse(200, "Delete price success!", null));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ApiResponse(400, "Delete price faild", e.getMessage()));
+
+        }
+    }
+
+    @PostMapping("/enable-price")
+    public ResponseEntity enableYard(@RequestBody @Valid DeleteCustome request) {
+        try {
+            priceService.enablePrice(request.getId());
+            return ResponseEntity.ok().body(new ApiResponse(200, "Enable yard success!", null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Enable yard faild", e.getMessage()));
 
         }
     }

@@ -1,10 +1,12 @@
-Le Minh Quyen's report - DATE :2024.08.01
+Le Minh Quyen's report - DATE :2024.08.02
 
 1. What have you done since the last DSM? 
-	- Làm api hủy sân và api chuyển thời gian đặt sân(2/8)
+	- Làm api hủy sân và api chuyển thời gian đặt sân(0/5)
+	- Check và sửa bug(0/3)
 	
-2. What do you intend to do before the next DSM? 
-	- Waiting for new task	
+2. What do you intend to do before the next DSM?
+	- Làm backlist token(4/4)
+	- Viết file docker cho dự án(4/4)
 	
 3. Do you have any issue which block your work? 
 	* None

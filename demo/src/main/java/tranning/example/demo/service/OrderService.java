@@ -4,15 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import tranning.example.demo.Config.Constant;
 import tranning.example.demo.dto.request.ChangeTimeOrder;
 import tranning.example.demo.dto.request.DeleteOrderRequest;
 import tranning.example.demo.dto.request.Orderrequest;
 import tranning.example.demo.model.OrderEntity;
 import tranning.example.demo.model.OrdersDetail;
+import tranning.example.demo.model.ReportEntity;
 import tranning.example.demo.model.YardEntity;
 import tranning.example.demo.model.enums.StatusOrder;
 import tranning.example.demo.reponsitories.OrderDetailRepositories;
 import tranning.example.demo.reponsitories.OrderReposotories;
+import tranning.example.demo.reponsitories.ReportReposirories;
 import tranning.example.demo.reponsitories.YardRepositories;
 
 @Service
@@ -23,6 +26,8 @@ public class OrderService {
         private OrderDetailRepositories detailRepositories;
         @Autowired
         private YardRepositories yardRepositories;
+        @Autowired
+        private ReportReposirories reportReposirories;
 
         @Transactional
         public void saveOrder(Orderrequest request) {
@@ -108,6 +113,8 @@ public class OrderService {
         public void changeTime(ChangeTimeOrder request) {
                 OrdersDetail ordersDetail = detailRepositories.findById(request.getOrder_detail_id())
                                 .orElseThrow(() -> new RuntimeException("Order Detail not found"));
+                // Xóa hóa đơn cũ
+                ordersDetail.setStatus(0);
                 YardEntity yardEntity = yardRepositories.findById(request.getYard_id())
                                 .orElseThrow(() -> new RuntimeException("Yard not found"));
                 // Lấy giá cũ
@@ -128,14 +135,30 @@ public class OrderService {
                                         request.getTime_start() + "-" + request.getTime_end());
                         yardEntity.setTimeEservations(time_replace);
                 }
-                // Lưu vào database
+                // * */ Lưu vào database
+
                 orderReposotories.setSumbill(price_current, ordersDetail.getOrderId(), request.getPrice());
-                ordersDetail.setPrice(request.getPrice());
-                ordersDetail.setTimeStart(request.getTime_start());
-                ordersDetail.setTimeEnd(request.getTime_end());
-                ordersDetail.setYardId(request.getYard_id());
+                // Tạo hóa đơn mới
+                OrdersDetail newOrder = new OrdersDetail();
+                newOrder.setPrice(request.getPrice());
+                newOrder.setTimeStart(request.getTime_start());
+                newOrder.setTimeEnd(request.getTime_end());
+                newOrder.setYardId(request.getYard_id());
+                newOrder.setOrderId(ordersDetail.getOrderId());
+                newOrder.setStatus(1);
+                // Tạo report
+
+                ReportEntity reportEntity = new ReportEntity();
+                reportEntity.setContent(request.getMessage_report());
+                reportEntity.setOrderDetailId(ordersDetail.getId());
+                reportEntity.setStatus(1);
+                reportEntity.setType(Constant.typeReport.get("report_change_time"));
+
+                // Lưu
                 detailRepositories.save(ordersDetail);
+                detailRepositories.save(newOrder);
                 yardRepositories.save(yardEntity);
+                reportReposirories.save(reportEntity);
 
         }
 

@@ -50,6 +50,10 @@ public class OrderController {
             orderService.changeTime(request);
             return ResponseEntity.ok().body(new ApiResponse(200, "Change time order success!", null));
         } catch (Exception e) {
+            if (e.getMessage().contains("Sân đã có người đặt")) {
+                return ResponseEntity.ok().body(new ApiResponse(999, "Change time order faild!", e.getMessage()));
+
+            }
             return ResponseEntity.badRequest().body(new ApiResponse(400, "Change time order faild!", e.getMessage()));
 
         }

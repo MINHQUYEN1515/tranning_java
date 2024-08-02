@@ -16,4 +16,5 @@ public class DeleteOrderRequest {
     Long order_id;
     @NotNull(message = "Trường order_detail_id không được để trống")
     Long order_detail_id;
+    String report;
 }

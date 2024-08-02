@@ -52,4 +52,9 @@ public class PriceService {
     public void deletePrice(Long id) {
         priceRepositories.deletePrice(id);
     }
+
+    @Transactional
+    public void enablePrice(Long id) {
+        priceRepositories.enablePrice(id);
+    }
 }

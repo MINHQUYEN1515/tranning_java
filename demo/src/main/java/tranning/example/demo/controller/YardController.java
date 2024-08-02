@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import tranning.example.demo.dto.request.DeleteCustome;
 import tranning.example.demo.dto.request.YardRequest;
 import tranning.example.demo.dto.response.ApiResponse;
 import tranning.example.demo.model.YardEntity;
@@ -56,6 +57,28 @@ public class YardController {
     @GetMapping(value = "/image/{image}", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] getimage(@PathVariable("image") String image) throws IOException {
         return getClass().getResourceAsStream("/static/yard/" + image).readAllBytes();
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity postMethodName(@RequestBody @Valid DeleteCustome request) {
+        try {
+            yardService.deleteYard(request.getId());
+            return ResponseEntity.ok().body(new ApiResponse(200, "Delete yard success!", null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Delete yard faild", e.getMessage()));
+
+        }
+    }
+
+    @PostMapping("/enable-yard")
+    public ResponseEntity enableYard(@RequestBody @Valid DeleteCustome request) {
+        try {
+            yardService.enableYard(request.getId());
+            return ResponseEntity.ok().body(new ApiResponse(200, "Enable yard success!", null));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new ApiResponse(400, "Enable yard faild", e.getMessage()));
+
+        }
     }
 
 }

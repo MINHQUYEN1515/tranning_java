@@ -19,7 +19,11 @@ public interface PriceRepositories extends JpaRepository<PriceEntity, Long> {
     public List<PriceEntity> getAll();
 
     @Modifying
-    @Query(value = "update price set status=-1 where id=:id", nativeQuery = true)
+    @Query(value = "update price set status=0 where id=:id", nativeQuery = true)
     public void deletePrice(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = "update price set status=1 where id=:id", nativeQuery = true)
+    public void enablePrice(@Param("id") Long id);
 
 }

@@ -26,4 +26,6 @@ public class ChangeTimeOrder {
     Long price;
     @NotNull(message = "Trường yard_id không được bỏ trống")
     Long yard_id;
+    @NotNull(message = "Trường message_report không được phép rỗng")
+    String message_report;
 }

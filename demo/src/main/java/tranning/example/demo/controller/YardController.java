@@ -47,7 +47,7 @@ public class YardController {
             request.setTime_start(yard.getTimeStart());
             request.setTime_end(yard.getTimeEnd());
             request.setAddress(yard.getAddress());
-            request.setStatus(yard.getStatus());
+            request.setStatus(1);
             return ResponseEntity.ok().body(request);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new ApiResponse(400, "Create yard faild", e.getMessage()));

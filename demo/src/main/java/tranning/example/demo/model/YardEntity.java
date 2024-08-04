@@ -39,6 +39,7 @@ public class YardEntity {
     @Column(name = "address")
     String address;
     @Column (name = "status")
+    String user_name;
     Integer status;
     @Column(name = "image")
     String image;

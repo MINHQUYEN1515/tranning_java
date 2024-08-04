@@ -20,6 +20,7 @@ public class YardReponse {
     @JsonFormat(pattern = "HH:mm:ss")
     LocalDateTime timeEnd;
     String name;
+    String user_name;
     String address;
     String image;
     Integer status;

@@ -19,6 +19,6 @@ public class YardRequest {
     @NotNull(message = "Trường addres không được để trống")
     String Address;
     String name;
-    Integer status;
+    Integer status; 
     String image;
 }

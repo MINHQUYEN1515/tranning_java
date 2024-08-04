@@ -1,8 +1,6 @@
 package tranning.example.demo.dto.request;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;

@@ -1,7 +1,6 @@
 package tranning.example.demo.mapper;
 
 import tranning.example.demo.dto.request.PriceRequest;
-import tranning.example.demo.dto.request.UpdatePrice;
 import tranning.example.demo.model.PriceEntity;
 
 public class PriceRequestToPriceEntity {

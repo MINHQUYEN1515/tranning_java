@@ -6,6 +6,7 @@ import tranning.example.demo.model.YardEntity;
 public class YardRequestToYard {
     public static YardEntity parseToYard(YardRequest request) {
         YardEntity yard = new YardEntity();
+
         yard.setName(request.getName());
         yard.setTimeStart(request.getTime_start());
         yard.setTimeEnd(request.getTime_end());

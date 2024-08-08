@@ -31,7 +31,7 @@ public class CustomDecoder implements JwtDecoder {
                 throw new JwtException("Token invalid");
             }
         } catch (Exception e) {
-            throw new JwtException(e.getMessage());
+            throw new RuntimeException(e);
         }
         if (Objects.isNull(nimbusJwtDecoder)) {
             SecretKeySpec secretKeySpec = new SecretKeySpec(AppConfig.SECRET_KEY.getBytes(), "HS256");

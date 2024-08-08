@@ -1,10 +1,11 @@
 package tranning.example.demo.reponsitories;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import tranning.example.demo.model.LogoutEntity;
 
-@org.springframework.stereotype.Repository
+@Repository
 public interface LogoutRedisRepositories extends CrudRepository<LogoutEntity, String> {
 
 }

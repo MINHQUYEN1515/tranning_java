@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: quyenle9bn202/demo:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/tranning
+      MY_SQL: true
+      REDIS_HOST: redis
+    networks:
+      - demo-network
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mysql:latest
+    networks:
+      - demo-network
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Quyen02112003
+      MYSQL_DATABASE: tranning
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis/redis-stack-server:latest
+    networks:
+      - demo-network
+    ports:
+      - "6379:6379"
+
+networks:
+  demo-network:
+    name: demo-network
+    driver: bridge
+    external: true
+

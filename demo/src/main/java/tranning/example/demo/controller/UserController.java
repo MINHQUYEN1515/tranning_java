@@ -104,7 +104,7 @@ public class UserController {
 
     @GetMapping(value = "/image/{image}", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] getimage(@PathVariable("image") String image) throws IOException {
-        return getClass().getResourceAsStream("/static/image/" + image).readAllBytes();
+        return getClass().getResourceAsStream("/demo/src/main/resources/static/image/" + image).readAllBytes();
     }
 
     @PostMapping("/edit-profile")

@@ -31,29 +31,41 @@ public class OrderService {
 
         @Transactional
         public void saveOrder(Orderrequest request) {
-                OrderEntity entity = orderReposotories.existsByUser(request.getName(), request.getPhone());
+                OrderEntity entity = orderReposotories.existsByUser(request.getName().toString(), request.getPhone());
 
                 YardEntity yard = yardRepositories.findById(request.getYard_id())
                                 .orElseThrow(() -> new RuntimeException("Không thể tìm thấy sân"));
 
-                if (yard.getTimeEservations().contains(request.getTime_start() + "-" + request.getTime_end())) {
-                        throw new RuntimeException("Sân đã có người đặt");
+                if (yard.getTimeEservations() != null) {
+                        if (yard.getTimeEservations().contains(request.getTime_start() + "-" + request.getTime_end())) {
+                                throw new RuntimeException("Sân đã có người đặt");
+                        }
                 }
-                if (entity == null || yard.getTimeEservations() == null) {
+                if (entity == null) {
                         // Tạo order
                         OrderEntity entity_temp = new OrderEntity();
                         entity_temp.setName(request.getName());
                         entity_temp.setPhone(request.getPhone());
                         entity_temp.setStatus(StatusOrder.getStatus(StatusOrder.MOIDAT.name()));
                         entity_temp.setSumBill(request.getPrice());
-                        // Lưu thời gian người đặt nếu trùng thí cảnh báo sân đã có người đặt
-
-                        yard.setTimeEservations(
-                                        yard.getTimeEservations() + "," + request.getTime_start() + "-"
-                                                        + request.getTime_end());
                         orderReposotories.save(entity_temp);
+
+                        // Lưu thời gian người đặt nếu trùng thí cảnh báo sân đã có người đặt
+                        if (yard.getTimeEservations() != null) {
+                                yard.setTimeEservations(
+                                                yard.getTimeEservations() + "," + request.getTime_start() + "-"
+                                                                + request.getTime_end());
+                        } else {
+
+                                yard.setTimeEservations(
+                                                request.getTime_start() + "-"
+                                                                + request.getTime_end());
+                        }
                         // Tạo order item
                         Long id = orderReposotories.getId(request.getName(), request.getPhone());
+                        if (id == null) {
+                                throw new RuntimeException("Giá trị null");
+                        }
                         OrdersDetail ordersDetail = new OrdersDetail();
                         ordersDetail.setTimeStart(request.getTime_start());
                         ordersDetail.setTimeEnd(request.getTime_end());

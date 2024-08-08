@@ -18,7 +18,7 @@ public interface OrderReposotories extends JpaRepository<OrderEntity, Long> {
     @Query(value = "select * from orders where name=:name and phone=:phone", nativeQuery = true)
     public OrderEntity existsByUser(@Param("name") String name, @Param("phone") String phone);
 
-    @Query(value = "select id from orders where name=:name and phone=:phone", nativeQuery = true)
+    @Query(value = "select id from orders where name like :name and phone like :phone ", nativeQuery = true)
     public Long getId(@Param("name") String name, @Param("phone") String phone);
 
     @Modifying

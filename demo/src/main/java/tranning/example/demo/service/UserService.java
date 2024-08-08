@@ -25,8 +25,7 @@ public class UserService {
     private static final String digits = "0123456789"; // 0-9
     private static final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
     private static Random generator = new Random();
-    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir")
-            + "/demo/src/main/resources/static/image/";
+    private static final String UPLOAD_DIRECTORY = "/demo/src/main/resources/static/image/";
     private final Path root = Paths.get(UPLOAD_DIRECTORY);
     @Autowired
     private UserRepositories userRepositories;

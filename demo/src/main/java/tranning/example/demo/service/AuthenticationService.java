@@ -103,7 +103,9 @@ public class AuthenticationService {
             invalidatedToken.setExpiration_date(expiryTime);
             redisRepositories.save(invalidatedToken);
         } catch (AppException exception) {
-            System.out.print(exception.getMessage());
+            throw new RuntimeException(exception);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
